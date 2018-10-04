@@ -4,13 +4,18 @@ defmodule Ledger.Repo.Migrations.CreateTransactions do
   def change do
     create table("transactions") do
       add :date, :date
+      add :amount, :decimal, null: false
       add :description, :string, null: false
       add :full_description, :string
-      add :amount, :decimal, null: false
       add :type, :string, limit: 10, null: false
       add :notes, :text
 
+      add :account_id, references(:accounts, on_delete: :delete_all)
+      add :parent_id, references(:transactions, on_delete: :delete_all)
+
       timestamps()
     end
+
+    create index(:transactions, [:account_id])
   end
 end
