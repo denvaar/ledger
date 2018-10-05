@@ -8,7 +8,7 @@ defmodule Ledger.Budgets.Account do
     field :type, :string
     field :amount, :decimal, default: 0
 
-    has_many :transactions, Transaction
+    has_many :transactions, Ledger.Budgets.Transaction
 
     timestamps()
   end

@@ -21,6 +21,10 @@ defmodule Ledger.Budgets do
     Repo.all(Account)
   end
 
+  def account_options do
+    Repo.all(from(account in Account, select: {account.name, account.id}))
+  end
+
   @doc """
   Gets a single account.
 
@@ -115,6 +119,7 @@ defmodule Ledger.Budgets do
   """
   def list_transactions do
     Repo.all(Transaction)
+    |> Repo.preload([:account])
   end
 
   @doc """
@@ -131,7 +136,10 @@ defmodule Ledger.Budgets do
       ** (Ecto.NoResultsError)
 
   """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
+  def get_transaction!(id) do
+    Repo.get!(Transaction, id)
+    |> Repo.preload([:account])
+  end
 
   @doc """
   Creates a transaction.

@@ -32,8 +32,9 @@ defmodule LedgerWeb.TransactionController do
 
   def edit(conn, %{"id" => id}) do
     transaction = Budgets.get_transaction!(id)
+    accounts = Budgets.account_options()
     changeset = Budgets.change_transaction(transaction)
-    render(conn, "edit.html", transaction: transaction, changeset: changeset)
+    render(conn, "edit.html", transaction: transaction, accounts: accounts, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "transaction" => transaction_params}) do
