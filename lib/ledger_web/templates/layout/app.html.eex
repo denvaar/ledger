@@ -17,6 +17,7 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
+        <a href="<%= page_path(@conn, :index) %>">Index</a>
         <%= render @view_module, @view_template, assigns %>
       </main>
 

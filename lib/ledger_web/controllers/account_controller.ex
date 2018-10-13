@@ -16,18 +16,13 @@ defmodule LedgerWeb.AccountController do
 
   def create(conn, %{"account" => account_params}) do
     case Budgets.create_account(account_params) do
-      {:ok, account} ->
+      {:ok, _account} ->
         conn
         |> put_flash(:info, "Account created successfully.")
-        |> redirect(to: account_path(conn, :show, account))
+        |> redirect(to: account_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    account = Budgets.get_account!(id)
-    render(conn, "show.html", account: account)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -40,10 +35,10 @@ defmodule LedgerWeb.AccountController do
     account = Budgets.get_account!(id)
 
     case Budgets.update_account(account, account_params) do
-      {:ok, account} ->
+      {:ok, _account} ->
         conn
         |> put_flash(:info, "Account updated successfully.")
-        |> redirect(to: account_path(conn, :show, account))
+        |> redirect(to: account_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", account: account, changeset: changeset)
     end

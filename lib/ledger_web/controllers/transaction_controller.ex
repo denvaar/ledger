@@ -10,24 +10,21 @@ defmodule LedgerWeb.TransactionController do
   end
 
   def new(conn, _params) do
+    accounts = Budgets.account_options()
     changeset = Budgets.change_transaction(%Transaction{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", accounts: accounts, changeset: changeset)
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
     case Budgets.create_transaction(transaction_params) do
-      {:ok, transaction} ->
+      {:ok, _transaction} ->
         conn
         |> put_flash(:info, "Transaction created successfully.")
-        |> redirect(to: transaction_path(conn, :show, transaction))
+        |> redirect(to: transaction_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        accounts = Budgets.account_options()
+        render(conn, "new.html", accounts: accounts, changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    transaction = Budgets.get_transaction!(id)
-    render(conn, "show.html", transaction: transaction)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -41,12 +38,13 @@ defmodule LedgerWeb.TransactionController do
     transaction = Budgets.get_transaction!(id)
 
     case Budgets.update_transaction(transaction, transaction_params) do
-      {:ok, transaction} ->
+      {:ok, _transaction} ->
         conn
         |> put_flash(:info, "Transaction updated successfully.")
-        |> redirect(to: transaction_path(conn, :show, transaction))
+        |> redirect(to: transaction_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", transaction: transaction, changeset: changeset)
+        accounts = Budgets.account_options()
+        render(conn, "edit.html", accounts: accounts, transaction: transaction, changeset: changeset)
     end
   end
 

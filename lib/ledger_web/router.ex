@@ -18,8 +18,8 @@ defmodule LedgerWeb.Router do
 
     get "/", PageController, :index
 
-    resources "/accounts", AccountController
-    resources "/transactions", TransactionController
+    resources "/accounts", AccountController, except: [:show]
+    resources "/transactions", TransactionController, except: [:show]
   end
 
   # Other scopes may use custom stacks.

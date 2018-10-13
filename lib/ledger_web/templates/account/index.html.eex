@@ -17,9 +17,7 @@
       <td> $<%= account.amount %> </td>
 
       <td class="text-right">
-        <span><%= link "Show", to: account_path(@conn, :show, account), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: account_path(@conn, :edit, account), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: account_path(@conn, :delete, account), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
