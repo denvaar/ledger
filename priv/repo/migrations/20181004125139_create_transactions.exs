@@ -11,11 +11,12 @@ defmodule Ledger.Repo.Migrations.CreateTransactions do
       add :notes, :text
 
       add :account_id, references(:accounts, on_delete: :delete_all)
+      add :category_id, references(:categories, on_delete: :delete_all)
       add :parent_id, references(:transactions, on_delete: :delete_all)
 
       timestamps()
     end
 
-    create index(:transactions, [:account_id])
+    create index(:transactions, [:account_id, :category_id])
   end
 end

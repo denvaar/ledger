@@ -8,6 +8,31 @@ defmodule Ledger.Budgets do
 
   alias Ledger.Budgets.Account
 
+
+  alias Ledger.Budgets.Category
+
+  @doc """
+  Return the list of categories.
+
+  ## Examples
+
+      iex> list_categories()
+      [%Category{}, ...]
+  """
+  def list_categories do
+    Repo.all(Category)
+  end
+
+  def change_category(%Category{} = category) do
+    Category.changeset(category, %{})
+  end
+
+  def create_category(attrs \\ %{}) do
+    %Category{}
+    |> Category.changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Returns the list of accounts.
 
