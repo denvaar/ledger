@@ -1,0 +1,29 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <h4>Details</h4>
+  <div class="form-group">
+    <label class="control-label">Label</label>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Refresh Period</label>
+    <%= select f, :frequency, ["Weekly": "weekly", "Monthly": "monthly"], class: "form-control" %>
+    <%= error_tag f, :frequency %>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Allotment Amount</label>
+    <%= text_input f, :allotment, class: "form-control" %>
+    <%= error_tag f, :allotment %>
+  </div>
+  <hr>
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+    <%= link "Cancel", to: category_path(@conn, :index), class: "btn btn-default" %>
+  </div>
+<% end %>

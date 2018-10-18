@@ -1,0 +1,25 @@
+<h2>Budgets</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Total Allotment</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for category <- @categories do %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.frequency %></td>
+        <td><%= category.allotment %></td>
+        <td class="text-right">
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link "Create Budget", to: category_path(@conn, :new), class: "btn btn-success" %>

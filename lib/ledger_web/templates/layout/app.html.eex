@@ -19,7 +19,7 @@
       <main role="main">
         <a href="<%= page_path(@conn, :index) %>">Dashboard</a> |
         <a href="<%= account_path(@conn, :index) %>">Accounts</a> |
-        <a href="<%= page_path(@conn, :index) %>">Budgets</a> |
+        <a href="<%= category_path(@conn, :index) %>">Budgets</a> |
         <a href="<%= transaction_path(@conn, :index) %>">Transactions</a>
         <%= render @view_module, @view_template, assigns %>
       </main>
