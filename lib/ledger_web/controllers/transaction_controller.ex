@@ -21,7 +21,7 @@ defmodule LedgerWeb.TransactionController do
         conn
         |> put_flash(:info, "Transaction created successfully.")
         |> redirect(to: transaction_path(conn, :index))
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :transaction, %Ecto.Changeset{} = changeset, _} ->
         accounts = Budgets.account_options()
         render(conn, "new.html", accounts: accounts, changeset: changeset)
     end

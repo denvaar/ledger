@@ -4,7 +4,7 @@ defmodule Ledger.Repo.Migrations.CreateTransactions do
   def change do
     create table("transactions") do
       add :date, :date
-      add :amount, :decimal, null: false
+      add :amount, :integer, null: false
       add :description, :string, null: false
       add :full_description, :string
       add :type, :string, limit: 10, null: false

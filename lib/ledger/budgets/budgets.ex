@@ -153,10 +153,22 @@ defmodule Ledger.Budgets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_transaction(attrs \\ %{}) do
-    %Transaction{}
-    |> Transaction.changeset(attrs)
-    |> Repo.insert()
+  alias Ecto.Multi
+
+  defp multiplier("debit"), do: -1
+  defp multiplier("credit"), do: 1
+  defp multiplier(_), do: 0
+
+  def create_transaction(%{"account_id" => account_id, "amount" => _amount, "date" => _date, "description" => _description, "type" => type} = attrs) do
+    transaction_changeset = Transaction.changeset(%Transaction{}, attrs)
+    account = get_account!(account_id)
+    account_changeset = Account.changeset(account, %{balance: account.balance.amount + (transaction_changeset.changes.amount.amount * multiplier(type))})
+
+    transaction = Multi.new()
+      |> Multi.insert(:transaction, transaction_changeset)
+      |> Multi.update(:account, account_changeset)
+
+    Repo.transaction(transaction)
   end
 
   @doc """
@@ -171,10 +183,64 @@ defmodule Ledger.Budgets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_transaction(%Transaction{} = transaction, attrs) do
-    transaction
-    |> Transaction.changeset(attrs)
-    |> Repo.update()
+
+  def update_transaction(%Transaction{} = transaction, %{"account_id" => account_id, "amount" => new_amount, "type" => new_type} = attrs) do
+
+    account_id = String.to_integer(account_id)
+    if transaction.account_id == account_id do
+      handle_update_same_account(transaction, attrs)
+    else
+      handle_update_different_account(transaction, attrs)
+    end
+  end
+
+  defp handle_update_same_account(transaction, %{"type" => new_type, "amount" => new_amount} = attrs) do
+    account_balance = recalc_account_balances(
+      transaction.account.balance.amount,
+      transaction.type,
+      transaction.amount.amount,
+      new_type,
+      Money.parse!(new_amount).amount
+    )
+
+    account_changeset = Account.changeset(transaction.account, %{balance: account_balance})
+    transaction_changeset = Transaction.changeset(transaction, attrs)
+
+    Multi.new()
+    |> Multi.update(:account, account_changeset)
+    |> Multi.update(:transaction, transaction_changeset)
+    |> Repo.transaction()
+  end
+
+  def handle_update_different_account(transaction, %{"account_id" => account_id, "type" => new_type, "amount" => new_amount} = attrs) do
+    new_account = get_account!(account_id)
+
+    {previous_account_balance, current_account_balance} = recalculate_account_balances(
+      transaction.account, transaction.amount.amount, transaction.type,
+      new_account, Money.parse!(new_amount).amount, new_type
+    )
+    transaction_changeset = Transaction.changeset(transaction, attrs)
+    previous_account_changeset = Account.changeset(transaction.account, %{balance: previous_account_balance})
+    current_account_changeset = Account.changeset(new_account, %{balance: current_account_balance})
+    Multi.new()
+    |> Multi.update(:previous_account, previous_account_changeset)
+    |> Multi.update(:transaction, transaction_changeset)
+    |> Multi.update(:current_account, current_account_changeset)
+    |> Repo.transaction()
+  end
+
+  def recalculate_account_balances(old_account, old_amount, old_type,
+                                   new_account, new_amount, new_type) do
+    old_account_balance = old_account.balance.amount + (old_amount * -1 * multiplier(old_type))
+    new_account_balance = new_account.balance.amount + (new_amount * multiplier(new_type))
+
+    {old_account_balance, new_account_balance}
+  end
+
+  # When the account doesn't change
+  def recalc_account_balances(balance, from_type, from_amount, to_type, to_amount) do
+    diff = (from_amount * -1 * multiplier(from_type)) + (to_amount * multiplier(to_type))
+    balance + diff
   end
 
   @doc """
@@ -204,5 +270,21 @@ defmodule Ledger.Budgets do
   """
   def change_transaction(%Transaction{} = transaction) do
     Transaction.changeset(transaction, %{})
+  end
+
+  def total_balance() do
+    Repo.one(from(a in Account, select: sum(a.balance))) || 0
+  end
+
+  def monthly_savings(date \\ Date.utc_today()) do
+    query = from(t in Transaction, where: t.type == "credit", select: sum(t.amount))
+    Repo.one(query) || 0
+  end
+
+  def monthly_expenses(date \\ Date.utc_today()) do
+    last_day_of_month = %{date | day: Date.days_in_month(date)}
+    first_day_of_month = %{date | day: 1}
+    query = from(t in Transaction, where: t.type == "debit", where: t.date >= ^first_day_of_month and t.date <= ^last_day_of_month, select: sum(t.amount))
+    Repo.one(query) || 0
   end
 end

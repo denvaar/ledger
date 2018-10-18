@@ -1,23 +1,10 @@
 alias Ledger.Budgets.Account
 
 accounts = [
-  %{name: "Groceries", type: "expense_account", amount: 300.00},
-  %{name: "Restauraunts", type: "expense_account", amount: 80.00},
-  %{name: "Home", type: "expense_account", amount: 2100.00},
-  %{name: "Auto", type: "expense_account", amount: 200.00},
-  %{name: "Bicycles", type: "expense_account", amount: 30.00},
-  %{name: "Bob's Allowance", type: "expense_account", amount: 50.00},
-  %{name: "Betty's Allowance", type: "expense_account", amount: 50.00},
-  %{name: "Vacation & Travel", type: "expense_account", amount: 100.00},
-  %{name: "Tithing & Donations", type: "expense_account", amount: 443.00},
-  %{name: "Gifts", type: "expense_account", amount: 50.00},
-  %{name: "Entertainment", type: "expense_account", amount: 60.00},
-  %{name: "Utilities", type: "expense_account", amount: 200.00},
-  %{name: "Subscriptions", type: "expense_account", amount: 30.00},
-  %{name: "Pet", type: "expense_account", amount: 30.00},
-  %{name: "Retirement", type: "savings_account", amount: 300.00},
-  %{name: "Discover Bank", type: "savings_account", amount: 500.00},
-  %{name: "HSA", type: "savings_account", amount: 50.00},
+  %{name: "Retirement", type: "savings_account", balance: 30000},
+  %{name: "Zions Simple Checking", type: "savings_account", balance: 30000},
+  %{name: "Discover Bank", type: "savings_account", balance: 50000},
+  %{name: "HSA", type: "savings_account", balance: 5000},
 ]
 
 default_account_data = %{

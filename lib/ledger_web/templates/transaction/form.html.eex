@@ -5,6 +5,7 @@
     </div>
   <% end %>
 
+  <h4>Details</h4>
   <div class="form-group">
     <%= label f, :date, class: "control-label" %>
     <%= date_input f, :date, class: "form-control" %>
@@ -12,7 +13,7 @@
   </div>
   <div class="form-group">
     <%= label f, :amount, class: "control-label" %>
-    <%= number_input f, :amount, class: "form-control", step: "0.01" %>
+    <%= text_input f, :amount, class: "form-control" %>
     <%= error_tag f, :amount %>
   </div>
   <div class="form-group">
@@ -30,8 +31,12 @@
     <%= select f, :account_id, @accounts, class: "form-control" %>
     <%= error_tag f, :account_id %>
   </div>
+  <hr>
+  <h4>Categorize transaction</h4>
 
+  <hr>
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
+    <%= link "Cancel", to: transaction_path(@conn, :index), class: "btn btn-default" %>
   </div>
 <% end %>

@@ -5,7 +5,7 @@ defmodule Ledger.Repo.Migrations.CreateAccounts do
     create table("accounts") do
       add :name, :string, null: false
       add :type, :string, limit: 20, null: false
-      add :amount, :decimal, default: 0, null: false
+      add :balance, :integer, default: 0, null: false
 
       timestamps()
     end

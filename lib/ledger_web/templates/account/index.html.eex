@@ -1,11 +1,11 @@
-<h2>Listing Accounts</h2>
+<h2>Accounts</h2>
 
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Account type</th>
-      <th>Total amount</th>
+      <th>Type</th>
+      <th>Balance</th>
       <th></th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
     <tr>
       <td> <%= account.name %> </td>
       <td> <%= account.type %> </td>
-      <td> $<%= account.amount %> </td>
+      <td> <%= account.balance %> </td>
 
       <td class="text-right">
         <span><%= link "Edit", to: account_path(@conn, :edit, account), class: "btn btn-default btn-xs" %></span>
@@ -24,4 +24,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Account", to: account_path(@conn, :new) %></span>
+<%= link "New Account", to: account_path(@conn, :new), class: "btn btn-success" %>

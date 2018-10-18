@@ -17,7 +17,10 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
-        <a href="<%= page_path(@conn, :index) %>">Index</a>
+        <a href="<%= page_path(@conn, :index) %>">Dashboard</a> |
+        <a href="<%= account_path(@conn, :index) %>">Accounts</a> |
+        <a href="<%= page_path(@conn, :index) %>">Budgets</a> |
+        <a href="<%= transaction_path(@conn, :index) %>">Transactions</a>
         <%= render @view_module, @view_template, assigns %>
       </main>
 

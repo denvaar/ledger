@@ -6,7 +6,7 @@ defmodule Ledger.Budgets.Account do
   schema "accounts" do
     field :name, :string
     field :type, :string
-    field :amount, :decimal, default: 0
+    field :balance, Money.Ecto.Type, default: 0
 
     has_many :transactions, Ledger.Budgets.Transaction
 
@@ -16,7 +16,7 @@ defmodule Ledger.Budgets.Account do
   @doc false
   def changeset(account, attrs) do
     account
-    |> cast(attrs, [:name, :type, :amount])
-    |> validate_required([:name, :type, :amount])
+    |> cast(attrs, [:name, :type, :balance])
+    |> validate_required([:name, :type, :balance])
   end
 end

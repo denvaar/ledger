@@ -5,7 +5,7 @@ defmodule Ledger.Budgets.Transaction do
 
   schema "transactions" do
     field :date, :date
-    field :amount, :decimal, default: 0
+    field :amount, Money.Ecto.Type, default: 0
     field :description, :string
     field :full_description, :string
     field :type, :string

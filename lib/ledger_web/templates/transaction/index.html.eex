@@ -1,4 +1,4 @@
-<h2>Listing Transactions</h2>
+<h2>Transactions</h2>
 
 <table class="table">
   <thead>
@@ -15,7 +15,7 @@
 <%= for transaction <- @transactions do %>
     <tr>
       <td> <%= transaction.date %> </td>
-      <td>$<%= transaction.amount %> </td>
+      <td> <%= transaction.amount %> </td>
       <td> <%= transaction.description %> </td>
       <td> <%= transaction.type %> </td>
       <td>
@@ -34,4 +34,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Transaction", to: transaction_path(@conn, :new) %></span>
+<%= link "Add Transaction", to: transaction_path(@conn, :new), class: "btn btn-success" %>
