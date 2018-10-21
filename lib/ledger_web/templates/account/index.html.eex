@@ -17,7 +17,7 @@
       <td> <%= account.balance %> </td>
 
       <td class="text-right">
-        <span><%= link "Edit", to: account_path(@conn, :edit, account), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: account_path(@conn, :edit, account), class: "btn btn-info btn-xs" %></span>
       </td>
     </tr>
 <% end %>

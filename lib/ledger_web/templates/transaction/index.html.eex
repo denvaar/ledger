@@ -6,7 +6,6 @@
       <th>Date</th>
       <th>Amount</th>
       <th>Description</th>
-      <th>Type</th>
       <th>Account</th>
       <th></th>
     </tr>
@@ -15,9 +14,12 @@
 <%= for transaction <- @transactions do %>
     <tr>
       <td> <%= transaction.date %> </td>
-      <td> <%= transaction.amount %> </td>
+      <%= if transaction.type == "debit" do %>
+        <td class="debit-text"> <%= transaction.amount %> </td>
+      <% else %>
+        <td class="credit-text"> <%= transaction.amount %> </td>
+      <% end %>
       <td> <%= transaction.description %> </td>
-      <td> <%= transaction.type %> </td>
       <td>
         <%= if transaction.account do %>
           <%= transaction.account.name %>
@@ -27,7 +29,7 @@
       </td>
 
       <td class="text-right">
-        <span><%= link "Edit", to: transaction_path(@conn, :edit, transaction), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: transaction_path(@conn, :edit, transaction), class: "btn btn-info btn-xs" %></span>
       </td>
     </tr>
 <% end %>

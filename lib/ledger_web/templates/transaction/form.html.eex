@@ -31,8 +31,14 @@
     <%= select f, :account_id, @accounts, class: "form-control" %>
     <%= error_tag f, :account_id %>
   </div>
+
   <hr>
   <h4>Categorize transaction</h4>
+  <div class="form-group">
+    <label class="control-label">Budget</label>
+    <%= select f, :category_id, [{"Uncategorized", ""} | @categories], class: "form-control" %>
+    <%= error_tag f, :category_id %>
+  </div>
 
   <hr>
   <div class="form-group">

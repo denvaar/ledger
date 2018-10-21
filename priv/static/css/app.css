@@ -58,6 +58,14 @@ body, form, ul, table {
   margin: 35px 0;
 }
 
+.debit-text {
+  color: #ff5722;
+}
+
+.credit-text {
+  color: #4caf50;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
