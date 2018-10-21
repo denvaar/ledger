@@ -16,6 +16,7 @@
         <td><%= category.frequency %></td>
         <td><%= category.allotment %></td>
         <td class="text-right">
+          <%= link "Edit", to: category_path(@conn, :edit, category), class: "btn btn-info btn-xs" %>
         </td>
       </tr>
     <% end %>

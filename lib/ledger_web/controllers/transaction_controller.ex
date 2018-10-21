@@ -10,9 +10,10 @@ defmodule LedgerWeb.TransactionController do
   end
 
   def new(conn, _params) do
+    categories = Budgets.category_options()
     accounts = Budgets.account_options()
     changeset = Budgets.change_transaction(%Transaction{})
-    render(conn, "new.html", accounts: accounts, changeset: changeset)
+    render(conn, "new.html", accounts: accounts, categories: categories, changeset: changeset)
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
@@ -30,8 +31,9 @@ defmodule LedgerWeb.TransactionController do
   def edit(conn, %{"id" => id}) do
     transaction = Budgets.get_transaction!(id)
     accounts = Budgets.account_options()
+    categories = Budgets.category_options()
     changeset = Budgets.change_transaction(transaction)
-    render(conn, "edit.html", transaction: transaction, accounts: accounts, changeset: changeset)
+    render(conn, "edit.html", transaction: transaction, accounts: accounts, categories: categories, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "transaction" => transaction_params}) do

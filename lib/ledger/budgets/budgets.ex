@@ -33,6 +33,20 @@ defmodule Ledger.Budgets do
     |> Repo.insert()
   end
 
+  def update_category(%Category{} = category, attrs) do
+    category
+    |> Category.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def get_category!(id) do
+    Repo.get!(Category, id)
+  end
+
+  def category_options do
+    Repo.all(from(category in Category, select: {category.name, category.id}))
+  end
+
   @doc """
   Returns the list of accounts.
 
@@ -196,6 +210,12 @@ defmodule Ledger.Budgets do
     Repo.transaction(transaction)
   end
 
+  def create_transaction(attrs) do
+    %Transaction{}
+    |> Transaction.changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Updates a transaction.
 
@@ -217,6 +237,12 @@ defmodule Ledger.Budgets do
     else
       handle_update_different_account(transaction, attrs)
     end
+  end
+
+  def update_transaction(%Transaction{} = transaction, attrs) do
+    transaction
+    |> Transaction.changeset(attrs)
+    |> Repo.update()
   end
 
   defp handle_update_same_account(transaction, %{"type" => new_type, "amount" => new_amount} = attrs) do
