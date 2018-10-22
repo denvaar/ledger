@@ -158,7 +158,7 @@ defmodule Ledger.Budgets do
   """
   def list_transactions do
     Repo.all(Transaction)
-    |> Repo.preload([:account])
+    |> Repo.preload([:account, :category])
   end
 
   @doc """
@@ -332,10 +332,23 @@ defmodule Ledger.Budgets do
     Repo.one(query) || 0
   end
 
-  def monthly_expenses(date \\ Date.utc_today()) do
+  defp transactions_this_month_query(date) do
     last_day_of_month = %{date | day: Date.days_in_month(date)}
     first_day_of_month = %{date | day: 1}
-    query = from(t in Transaction, where: t.type == "debit", where: t.date >= ^first_day_of_month and t.date <= ^last_day_of_month, select: sum(t.amount))
+
+    from(t in Transaction, where: t.type == "debit", where: t.date >= ^first_day_of_month and t.date <= ^last_day_of_month)
+  end
+
+  def monthly_expenses(date \\ Date.utc_today()) do
+    query = from(t in transactions_this_month_query(date), select: sum(t.amount))
     Repo.one(query) || 0
+  end
+
+  def amounts_by_budget() do
+    query = from(t in transactions_this_month_query(Date.utc_today()),
+         left_join: c in Category, on: c.id == t.category_id,
+         select: {c.name, sum(t.amount)},
+         group_by: c.name)
+    Repo.all(query)
   end
 end

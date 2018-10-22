@@ -66,6 +66,11 @@ body, form, ul, table {
   color: #4caf50;
 }
 
+.pad-row-items span {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */

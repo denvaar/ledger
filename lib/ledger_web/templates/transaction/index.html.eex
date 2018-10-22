@@ -1,5 +1,10 @@
 <h2>Transactions</h2>
 
+<div class="small pad-row-items">
+  <span>By category: <select><option></option><option>blah lahaalal</option></select></span>
+  <span>By type: <select><option></option><option>blah lahaalal</option></select></span>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -7,6 +12,7 @@
       <th>Amount</th>
       <th>Description</th>
       <th>Account</th>
+      <th>Budget</th>
       <th></th>
     </tr>
   </thead>
@@ -15,14 +21,21 @@
     <tr>
       <td> <%= transaction.date %> </td>
       <%= if transaction.type == "debit" do %>
-        <td class="debit-text"> <%= transaction.amount %> </td>
+        <td class="debit-text"> - <%= transaction.amount %> </td>
       <% else %>
-        <td class="credit-text"> <%= transaction.amount %> </td>
+        <td class="credit-text"> + <%= transaction.amount %> </td>
       <% end %>
       <td> <%= transaction.description %> </td>
       <td>
         <%= if transaction.account do %>
           <%= transaction.account.name %>
+        <% else %>
+          --
+        <% end %>
+      </td>
+      <td>
+        <%= if transaction.category do %>
+          <%= transaction.category.name %>
         <% else %>
           --
         <% end %>

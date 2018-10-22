@@ -1,16 +1,21 @@
 <h2>Dashboard</h2>
 <hr>
 <div class="row marketing">
-  <div class="text-center col-lg-12">
-    <h3>Total Balance</h3>
-    <h3><%= Money.new(@total_balance) %></h3>
-    <div class="col-sm-6">
-      <h3><%= @current_month %> Expenses</h3>
-      <h3><%= Money.new(@expense_amount) %></h3>
-    </div>
-    <div class="col-sm-6">
-      <h3><%= @current_month %> Earnings</h3>
-      <h3><%= Money.new(@savings_amount) %></h3>
-    </div>
+  <div class="col-lg-12">
+    <h4>Total Balance</h4>
+    <p><%= Money.new(@total_balance) %></p>
+    <h4><%= @current_month %> Expenses</h4>
+    <p><%= Money.new(@expense_amount) %></p>
+    <ul>
+      <%= for {category, amount} <- @amounts_by_budget do %>
+        <%= if !category do %>
+          <li style="color:#ff9800"> Uncategorized: <%= Money.new(amount) %> </li>
+        <% else %>
+          <li> <%= category %>: <%= Money.new(amount) %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <h4><%= @current_month %> Earnings</h4>
+    <p><%= Money.new(@savings_amount) %></p>
   </div>
 </div>
