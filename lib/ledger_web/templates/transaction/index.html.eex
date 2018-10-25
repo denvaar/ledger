@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-<%= for transaction <- @transactions do %>
+<%= for transaction <- @page do %>
     <tr>
       <td> <%= transaction.date %> </td>
       <%= if transaction.type == "debit" do %>
@@ -48,5 +48,9 @@
 <% end %>
   </tbody>
 </table>
+
+<div class="text-center">
+  <%= pagination_links @page %>
+</div>
 
 <%= link "Add Transaction", to: transaction_path(@conn, :new), class: "btn btn-success" %>

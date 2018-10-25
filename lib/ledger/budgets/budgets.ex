@@ -157,8 +157,8 @@ defmodule Ledger.Budgets do
 
   """
   def list_transactions do
-    Repo.all(Transaction)
-    |> Repo.preload([:account, :category])
+    Transaction
+    |> preload([:account, :category])
   end
 
   @doc """
