@@ -4,9 +4,12 @@ defmodule LedgerWeb.TransactionController do
   alias Ledger.Budgets
   alias Ledger.Budgets.Transaction
 
-  def index(conn, _params) do
-    transactions = Budgets.list_transactions()
-    render(conn, "index.html", transactions: transactions)
+  def index(conn, params) do
+    page =
+      Budgets.list_transactions()
+      |> Ledger.Repo.paginate(params)
+
+    render(conn, "index.html", page: page)
   end
 
   def new(conn, _params) do

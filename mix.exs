@@ -20,7 +20,13 @@ defmodule Ledger.Mixfile do
   def application do
     [
       mod: {Ledger.Application, []},
-      extra_applications: [:logger, :runtime_tools, :timex]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :scrivener_ecto,
+        :scrivener_html,
+        :timex,
+      ]
     ]
   end
 
@@ -41,8 +47,10 @@ defmodule Ledger.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:scrivener_ecto, "~> 1.0"},
+      {:scrivener_html, "~> 1.7"},
       {:timex, "~> 3.1"},
-      {:money, "~> 1.2.1"}
+      {:money, "~> 1.2.1"},
     ]
   end
 
