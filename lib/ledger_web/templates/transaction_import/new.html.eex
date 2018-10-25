@@ -1,0 +1,11 @@
+<h2>Import Transactions</h2>
+
+<%= form_for @conn, transaction_import_path(@conn, :create), [multipart: true], fn f -> %>
+  <div class="form-group">
+    <%= file_input f, :csv_file, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= submit "Import CSV File", class: "btn btn-success" %>
+    <%= link "Cancel", to: report_path(@conn, :index), class: "btn btn-default" %>
+  </div>
+<% end %>

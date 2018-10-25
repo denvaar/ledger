@@ -51,6 +51,7 @@ defmodule Ledger.Mixfile do
       {:scrivener_html, "~> 1.7"},
       {:timex, "~> 3.1"},
       {:money, "~> 1.2.1"},
+      {:csv, "~> 2.0.0"},
     ]
   end
 

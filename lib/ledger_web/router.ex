@@ -19,6 +19,7 @@ defmodule LedgerWeb.Router do
     get "/", PageController, :index
     get "/reports", ReportController, :index
 
+    resources "/transactions-import", TransactionImportController, only: [:new, :create]
     resources "/accounts", AccountController, except: [:show]
     resources "/transactions", TransactionController, except: [:show]
     resources "/budgets", CategoryController, except: [:show]

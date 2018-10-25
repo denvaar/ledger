@@ -328,7 +328,8 @@ defmodule Ledger.Budgets do
   end
 
   def monthly_savings(date \\ Date.utc_today()) do
-    query = from(t in Transaction, where: t.type == "credit", select: sum(t.amount))
+    query = from(t in transactions_this_month_query(Date.utc_today()), where: t.type == "credit", select: sum(t.amount))
+
     Repo.one(query) || 0
   end
 
@@ -336,19 +337,46 @@ defmodule Ledger.Budgets do
     last_day_of_month = %{date | day: Date.days_in_month(date)}
     first_day_of_month = %{date | day: 1}
 
-    from(t in Transaction, where: t.type == "debit", where: t.date >= ^first_day_of_month and t.date <= ^last_day_of_month)
+    from(t in Transaction, where: t.date >= ^first_day_of_month and t.date <= ^last_day_of_month)
   end
 
   def monthly_expenses(date \\ Date.utc_today()) do
-    query = from(t in transactions_this_month_query(date), select: sum(t.amount))
+    query = from(t in transactions_this_month_query(date), where: t.type == "debit", select: sum(t.amount))
     Repo.one(query) || 0
   end
 
   def amounts_by_budget() do
     query = from(t in transactions_this_month_query(Date.utc_today()),
+         where: t.type == "debit",
          left_join: c in Category, on: c.id == t.category_id,
          select: {c.name, sum(t.amount)},
          group_by: c.name)
     Repo.all(query)
+  end
+
+  def import_transactions(%Plug.Upload{path: path} = _file) do
+    data = path
+      |> File.stream!()
+      |> CSV.decode()
+      |> Stream.drop(1)
+      |> Enum.map(fn (row) -> map_to_transaction(row) end)
+
+    Repo.insert_all(Transaction, data)
+  end
+
+
+  defp map_to_transaction({:ok, [date, description, full_description, amount, type | _rest] }) do
+    default_transaction_data = %{
+    }
+    %{
+      date: Timex.to_date(Timex.parse!(date, "{M}/{D}/{YYYY}")),
+      description: description,
+      full_description: full_description,
+      amount: Money.parse!(amount).amount,
+      type: type,
+      account_id: 2, # TODO: fixme
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
+    }
   end
 end

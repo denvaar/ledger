@@ -1,2 +1,4 @@
 <h2>Reports</h2>
 
+<%= link "Import Transactions (CSV)", to: transaction_import_path(@conn, :new) %>
+
