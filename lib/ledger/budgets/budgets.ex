@@ -17,6 +17,7 @@ defmodule Ledger.Budgets do
   defdelegate create_account(attrs), to: Accounts
   defdelegate delete_account(account), to: Accounts
   defdelegate get_account!(id), to: Accounts
+  defdelegate get_account(id), to: Accounts
   defdelegate list_accounts, to: Accounts
   defdelegate update_account(account, attrs), to: Accounts
   defdelegate total_balance, to: Accounts

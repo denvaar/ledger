@@ -26,8 +26,9 @@ defmodule LedgerWeb.TransactionController do
         |> put_flash(:info, "Transaction created successfully.")
         |> redirect(to: transaction_path(conn, :index))
       {:error, :transaction, %Ecto.Changeset{} = changeset, _} ->
+        categories = Budgets.category_options()
         accounts = Budgets.account_options()
-        render(conn, "new.html", accounts: accounts, changeset: changeset)
+        render(conn, "new.html", categories: categories, accounts: accounts, changeset: changeset)
     end
   end
 
@@ -48,8 +49,9 @@ defmodule LedgerWeb.TransactionController do
         |> put_flash(:info, "Transaction updated successfully.")
         |> redirect(to: transaction_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
+        categories = Budgets.category_options()
         accounts = Budgets.account_options()
-        render(conn, "edit.html", accounts: accounts, transaction: transaction, changeset: changeset)
+        render(conn, "edit.html", categories: categories, accounts: accounts, transaction: transaction, changeset: changeset)
     end
   end
 

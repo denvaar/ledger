@@ -1,4 +1,4 @@
-budgets = [
+_budgets = [
   %{name: "Groceries", type: "expense_account", balance: 30000},
   %{name: "Restauraunts", type: "expense_account", balance: 8000},
   %{name: "Home", type: "expense_account", balance: 210000},

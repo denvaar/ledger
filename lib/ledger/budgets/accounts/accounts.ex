@@ -19,6 +19,8 @@ defmodule Ledger.Budgets.Accounts do
 
   def get_account!(id), do: Repo.get!(Account, id)
 
+  def get_account(id), do: Repo.get(Account, id)
+
   def create_account(attrs \\ %{}) do
     %Account{}
     |> Account.changeset(attrs)
