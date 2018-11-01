@@ -10,13 +10,19 @@ defmodule Ledger.Budgets.Transactions.Updater do
   import Ledger.Budgets.Transactions.Utils, only: [multiplier: 1]
 
 
-  def update_transaction(%Transaction{} = transaction, %{"account_id" => account_id, "amount" => new_amount, "type" => new_type} = attrs) do
-
+  def update_transaction(%Transaction{} = transaction, %{"account_id" => account_id} = attrs) when account_id != "" do
     account_id = String.to_integer(account_id)
-    if transaction.account_id == account_id do
-      handle_update_same_account(transaction, attrs)
-    else
-      handle_update_different_account(transaction, attrs)
+    case current_account_id = transaction.account_id do
+      nil ->
+        transaction
+        |> Transaction.changeset(attrs)
+        |> Repo.update()
+      _ ->
+        if transaction.account_id == account_id do
+          handle_update_same_account(transaction, attrs)
+        else
+          handle_update_different_account(transaction, attrs)
+        end
     end
   end
 

@@ -12,14 +12,19 @@ defmodule Ledger.Budgets.Transactions.Creator do
 
   def create_transaction(%{"account_id" => account_id, "amount" => _amount, "date" => _date, "description" => _description, "type" => type} = attrs) do
     transaction_changeset = Transaction.changeset(%Transaction{}, attrs)
-    account = Ledger.Budgets.get_account!(account_id)
-    account_changeset = Account.changeset(account, %{balance: account.balance.amount + (transaction_changeset.changes.amount.amount * multiplier(type))})
+    with account <- Ledger.Budgets.get_account(account_id) do
+      account_changeset = Account.changeset(account, %{balance: account.balance.amount + (transaction_changeset.changes.amount.amount * multiplier(type))})
 
-    transaction = Multi.new()
-      |> Multi.insert(:transaction, transaction_changeset)
-      |> Multi.update(:account, account_changeset)
+      transaction = Multi.new()
+        |> Multi.insert(:transaction, transaction_changeset)
+        |> Multi.update(:account, account_changeset)
 
-    Repo.transaction(transaction)
+      Repo.transaction(transaction)
+    else
+      nil ->
+        transaction_changeset
+        |> Repo.insert()
+    end
   end
 
   def create_transaction(attrs) do

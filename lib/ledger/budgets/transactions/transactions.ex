@@ -10,7 +10,7 @@ defmodule Ledger.Budgets.Transactions do
 
 
   def list_transactions do
-    from(t in Transaction, preload: [:account, :category])
+    from(t in Transaction, preload: [:account, :category], order_by: [desc: t.date])
   end
 
   def get_transaction!(id) do
