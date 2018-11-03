@@ -10,7 +10,7 @@ defmodule Ledger.Budgets.Transactions.Creator do
   import Ledger.Budgets.Transactions.Utils, only: [multiplier: 1]
 
 
-  def create_transaction(%{"account_id" => account_id, "amount" => _amount, "date" => _date, "description" => _description, "type" => type} = attrs) do
+  def create_transaction(%{"account_id" => account_id, "amount" => _amount, "date" => _date, "description" => _description, "type" => type} = attrs) when account_id != "" do
     transaction_changeset = Transaction.changeset(%Transaction{}, attrs)
     with account <- Ledger.Budgets.get_account(account_id) do
       account_changeset = Account.changeset(account, %{balance: account.balance.amount + (transaction_changeset.changes.amount.amount * multiplier(type))})

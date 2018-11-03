@@ -29,6 +29,10 @@ defmodule LedgerWeb.TransactionController do
         categories = Budgets.category_options()
         accounts = Budgets.account_options()
         render(conn, "new.html", categories: categories, accounts: accounts, changeset: changeset)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        categories = Budgets.category_options()
+        accounts = Budgets.account_options()
+        render(conn, "new.html", categories: categories, accounts: accounts, changeset: changeset)
     end
   end
 

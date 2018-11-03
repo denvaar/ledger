@@ -1,19 +1,22 @@
-# Ledger
+# Budget App
 
-To start your Phoenix server:
+### Requirements
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Start Phoenix endpoint with `mix phx.server`
+#### General
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- Must have CRUD operations for transactions
+- Must have CRUD operations for accounts
+- Must have CRUD operations for categories (budgets)
+- Must have ability to classify a transaction
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+#### Dashboard
 
-## Learn more
+- Must display the total balance (sum of all transactions)
+- Must display the total expenses and earnings for the current month
+- Must display a breakdown of expenses per category (budget) for the current month
+- Must display a breakdown of earnings per category (budget) for the current month
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+#### Data Analysis
+
+- Must display a visualization of total balance over time
+- Must have ability to look at expenses by category over time
