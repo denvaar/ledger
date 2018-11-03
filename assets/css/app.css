@@ -1,0 +1,37 @@
+html {
+}
+
+body {
+  background-color: #171a1d;
+  color: #63747c;
+  font-family: 'Space Mono', monospace;
+  text-transform: lowercase;
+  box-sizing: border-box;
+}
+
+a,
+a:hover,
+a:visited {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+.currency {
+  color: #4e9d95;
+}
+
+.container {
+  display: flex;
+}
+
+.card-container {
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 2px;
+  background-color: #1e2730;
+}
+
+.card-container .title {
+  font-size: 0.7rem;
+  border-bottom: 1px solid;
+}

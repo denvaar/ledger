@@ -28,7 +28,7 @@
   </div>
   <div class="form-group">
     <%= label f, :account_id, class: "control-label" %>
-    <%= select f, :account_id, [{"---", ""} | @accounts], class: "form-control" %>
+    <%= select f, :account_id, [{"---", nil} | @accounts], class: "form-control" %>
     <%= error_tag f, :account_id %>
   </div>
 

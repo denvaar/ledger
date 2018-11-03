@@ -1,21 +1,29 @@
 <h2>Dashboard</h2>
 <hr>
 <div class="row marketing">
-  <div class="col-lg-12">
-    <h4>Total Balance</h4>
-    <p><%= Money.new(@total_balance) %></p>
-    <h4><%= @current_month %> Expenses</h4>
-    <p><%= Money.new(@expense_amount) %></p>
-    <ul>
-      <%= for {category, amount} <- @amounts_by_budget do %>
-        <%= if !category do %>
-          <li style="color:#ff9800"> Uncategorized: <%= Money.new(amount) %> </li>
-        <% else %>
-          <li> <%= category %>: <%= Money.new(amount) %> </li>
-        <% end %>
-      <% end %>
-    </ul>
-    <h4><%= @current_month %> Earnings</h4>
-    <p><%= Money.new(@savings_amount) %></p>
+  <div class="card-container">
+    <div class="title">Total Balance</div>
+    <div class="currency"><%= Money.new(@total_balance) %></div>
+  </div>
+  <div class="card-container">
+    <div class="title"><%= @current_month %> Income</div>
+    <div class="currency"><%= Money.new(@savings_amount) %></div>
+  </div>
+  <div class="card-container">
+    <div class="title"><%= @current_month %> Expenses</div>
+    <div id="expense-chart"></div>
   </div>
 </div>
+
+<script>
+var expenseData = []
+<%= for {category, amount} <- @amounts_by_budget do %>
+  <%= if !category do %>
+    expenseData.push({ budget: "Uncategorized", amount: <%= amount %> })
+  <% else %>
+    expenseData.push({ budget: "<%= category %>", amount: <%= amount %> })
+  <% end %>
+<% end %>
+var expenseTotal = "<%= Money.new(@expense_amount) %>"
+</script>
+<script src="<%= static_path(@conn, "/js/Dashboard.js") %>"></script>
