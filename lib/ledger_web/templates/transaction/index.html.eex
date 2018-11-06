@@ -1,56 +1,48 @@
 <h2>Transactions</h2>
 
-<div class="small pad-row-items">
-  <span>By category: <select><option></option><option>blah lahaalal</option></select></span>
-  <span>By type: <select><option></option><option>blah lahaalal</option></select></span>
-</div>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Amount</th>
-      <th>Description</th>
-      <th>Account</th>
-      <th>Budget</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for transaction <- @page do %>
-    <tr>
-      <td> <%= transaction.date %> </td>
+<div class="table">
+  <div class="table-row table-header">
+    <div class="table-row-item">Date</div>
+    <div class="table-row-item">Amount</div>
+    <div class="table-row-item">Description</div>
+    <div class="table-row-item">Account</div>
+    <div class="table-row-item">Budget</div>
+    <div class="table-row-item"></div>
+  </div>
+  <%= for transaction <- @page do %>
+    <div class="table-row">
+      <div class="table-row-item" data-header="Date"><%= transaction.date %></div>
+      <div class="table-row-item" data-header="Amount">
       <%= if transaction.type == "debit" do %>
-        <td class="debit-text"> - <%= transaction.amount %> </td>
+        <span class="debit-text">(<%= transaction.amount %>)</span>
       <% else %>
-        <td class="credit-text"> + <%= transaction.amount %> </td>
+        <span class="currency"><%= transaction.amount %></span>
       <% end %>
-      <td> <%= transaction.description %> </td>
-      <td>
+      </div>
+      <div class="table-row-item" data-header="Description"><%= transaction.description %></div>
+      <div class="table-row-item" data-header="Account">
         <%= if transaction.account do %>
           <%= transaction.account.name %>
         <% else %>
           --
         <% end %>
-      </td>
-      <td>
+      </div>
+      <div class="table-row-item" data-header="Budget">
         <%= if transaction.category do %>
           <%= transaction.category.name %>
         <% else %>
           --
         <% end %>
-      </td>
-
-      <td class="text-right">
-        <span><%= link "Edit", to: transaction_path(@conn, :edit, transaction), class: "btn btn-info btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+      </div>
+      <div class="table-row-item right-align" data-header="">
+        <%= link "Edit", to: transaction_path(@conn, :edit, transaction), class: "btn btn-info btn-xs" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <div class="text-center">
   <%= pagination_links @page %>
 </div>
 
-<%= link "Add Transaction", to: transaction_path(@conn, :new), class: "btn btn-success" %>
+<%= link "Add Transaction", to: transaction_path(@conn, :new), class: "button primary" %>

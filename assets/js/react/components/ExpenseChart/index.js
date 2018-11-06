@@ -33,7 +33,7 @@ const ExpenseChart = ({ expenseTotal, data }) => {
           />
           <VictoryLabel
             textAnchor="middle"
-            style={{ fontSize: 16, fill: "#3a867f", fontFamily: 'Space Mono' }}
+            style={{ fontSize: 16, fill: "#3a867f", fontFamily: 'Open Sans' }}
             x={150} y={150}
             text={expenseTotal}
           />
@@ -41,6 +41,7 @@ const ExpenseChart = ({ expenseTotal, data }) => {
       </div>
       <table className="legend">
         <tbody>
+
           {data.map((d, i) => (
             <tr key={d.x}>
               <td className="swatch" style={{backgroundColor: `${colors[i]}`}} />
@@ -48,6 +49,7 @@ const ExpenseChart = ({ expenseTotal, data }) => {
               <td className="value currency">{asCurrency(d.y)}</td>
             </tr>
           ))}
+
         </tbody>
       </table>
     </div>

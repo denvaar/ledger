@@ -5,7 +5,7 @@
     <%= file_input f, :csv_file, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= submit "Import CSV File", class: "btn btn-success" %>
-    <%= link "Cancel", to: report_path(@conn, :index), class: "btn btn-default" %>
+    <%= submit "Import CSV File", class: "button primary" %>
+    <%= link "Cancel", to: report_path(@conn, :index), class: "button cancel" %>
   </div>
 <% end %>

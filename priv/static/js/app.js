@@ -97,6 +97,17 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./css/
 
 /***/ }),
 
+/***/ "./css/picnic.css":
+/*!************************!*\
+  !*** ./css/picnic.css ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./css/picnic.css?");
+
+/***/ }),
+
 /***/ "./js/app.js":
 /*!*******************!*\
   !*** ./js/app.js ***!
@@ -105,7 +116,7 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./css/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/app.css */ \"./css/app.css\");\n/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_app_css__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack:///./js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_picnic_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/picnic.css */ \"./css/picnic.css\");\n/* harmony import */ var _css_picnic_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_picnic_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/app.css */ \"./css/app.css\");\n/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_app_css__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n//# sourceURL=webpack:///./js/app.js?");
 
 /***/ }),
 
