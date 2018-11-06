@@ -1,27 +1,20 @@
 <h2>Accounts</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Balance</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for account <- @accounts do %>
-    <tr>
-      <td> <%= account.name %> </td>
-      <td> <%= account.type %> </td>
-      <td> <%= account.balance %> </td>
+<div class="table">
+  <div class="table-row table-header">
+    <div class="table-row-item">Name</div>
+    <div class="table-row-item">Type</div>
+    <div class="table-row-item right-align">Balance</div>
+    <div class="table-row-item">&nbsp;</div>
+  </div>
+  <%= for account <- @accounts do %>
+    <div class="table-row">
+      <div class="table-row-item" data-header="Name"><%= account.name %></div>
+      <div class="table-row-item" data-header="Type"><%= account.type %></div>
+      <div class="table-row-item right-align" data-header="Balance"><span class="currency"><%= account.balance %></span></div>
+      <div class="table-row-item right-align" data-header=""><%= link "Edit", to: account_path(@conn, :edit, account), class: "" %></div>
+    </div>
+  <% end %>
+</div>
 
-      <td class="text-right">
-        <span><%= link "Edit", to: account_path(@conn, :edit, account), class: "btn btn-info btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<%= link "New Account", to: account_path(@conn, :new), class: "btn btn-success" %>
+<%= link "New Account", to: account_path(@conn, :new), class: "button" %>

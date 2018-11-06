@@ -1,26 +1,22 @@
 <h2>Budgets</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Total Allotment</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for category <- @categories do %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= category.frequency %></td>
-        <td><%= category.allotment %></td>
-        <td class="text-right">
-          <%= link "Edit", to: category_path(@conn, :edit, category), class: "btn btn-info btn-xs" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="table">
+  <div class="table-row table-header">
+    <div class="table-row-item">Name</div>
+    <div class="table-row-item">Type</div>
+    <div class="table-row-item right-align">Total Allotment</div>
+    <div class="table-row-item"></div>
+  </div>
+  <%= for category <- @categories do %>
+    <div class="table-row">
+      <div class="table-row-item" data-header="Name"><%= category.name %></div>
+      <div class="table-row-item" data-header="Type"><%= category.frequency %></div>
+      <div class="table-row-item right-align" data-header="Total Allotment"><span class="currency"><%= category.allotment %></span></div>
+      <div class="table-row-item right-align" data-header="">
+        <%= link "Edit", to: category_path(@conn, :edit, category), class: "" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<%= link "Create Budget", to: category_path(@conn, :new), class: "btn btn-success" %>
+<%= link "Create Budget", to: category_path(@conn, :new), class: "button primary" %>

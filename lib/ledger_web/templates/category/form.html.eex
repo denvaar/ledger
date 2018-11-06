@@ -5,7 +5,6 @@
     </div>
   <% end %>
 
-  <h4>Details</h4>
   <div class="form-group">
     <label class="control-label">Label</label>
     <%= text_input f, :name, class: "form-control" %>
@@ -21,9 +20,8 @@
     <%= text_input f, :allotment, class: "form-control" %>
     <%= error_tag f, :allotment %>
   </div>
-  <hr>
   <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-    <%= link "Cancel", to: category_path(@conn, :index), class: "btn btn-default" %>
+    <%= submit "Submit", class: "button" %>
+    <%= link "Cancel", to: category_path(@conn, :index), class: "button cancel" %>
   </div>
 <% end %>

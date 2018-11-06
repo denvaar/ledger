@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <title>Hello Ledger!</title>
-    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -18,11 +18,18 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
-        <a href="<%= page_path(@conn, :index) %>">Dashboard</a> |
-        <a href="<%= account_path(@conn, :index) %>">Accounts</a> |
-        <a href="<%= category_path(@conn, :index) %>">Budgets</a> |
-        <a href="<%= transaction_path(@conn, :index) %>">Transactions</a> |
-        <a href="<%= report_path(@conn, :index) %>">Reports</a>
+        <nav class="top-nav">
+          <!-- responsive-->
+          <input id="bmenub" type="checkbox" class="show">
+          <label for="bmenub" class="burger pseudo button">&#9776;</label>
+          <div class="menu">
+            <a class="pseudo button" href="<%= page_path(@conn, :index) %>">Dashboard</a>
+            <a class="pseudo button" href="<%= account_path(@conn, :index) %>">Accounts</a>
+            <a class="pseudo button" href="<%= category_path(@conn, :index) %>">Budgets</a>
+            <a class="pseudo button" href="<%= transaction_path(@conn, :index) %>">Transactions</a>
+            <a class="pseudo button" href="<%= report_path(@conn, :index) %>">Reports</a>
+          </div>
+        </nav>
         <%= render @view_module, @view_template, assigns %>
       </main>
 

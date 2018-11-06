@@ -14,7 +14,6 @@ module.exports = (env, options) => ({
   },
   entry: {
     app: [
-      //'./js/app.js': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
       './js/app.js'
     ],
     dashboard: [
