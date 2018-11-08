@@ -43,8 +43,9 @@ defmodule Ledger.Budgets.Transactions do
     query = from(t in transactions_this_month_query(Date.utc_today()),
          where: t.type == "debit",
          left_join: c in Category, on: c.id == t.category_id,
-         select: {c.name, sum(t.amount)},
-         group_by: c.name)
+         select: {c.id, c.color, c.name, sum(t.amount)},
+         group_by: c.id)
+
     Repo.all(query)
   end
 

@@ -11,6 +11,11 @@
     <%= error_tag f, :name %>
   </div>
   <div class="form-group">
+    <label class="control-label">Color</label>
+    <%= select f, :color, @available_colors, class: "form-control" %>
+    <%= error_tag f, :color %>
+  </div>
+  <div class="form-group">
     <label class="control-label">Refresh Period</label>
     <%= select f, :frequency, ["Weekly": "weekly", "Monthly": "monthly"], class: "form-control" %>
     <%= error_tag f, :frequency %>

@@ -16,11 +16,11 @@
 
 <script>
 var expenseData = []
-<%= for {category, amount} <- @amounts_by_budget do %>
+<%= for {_id, color, category, amount} <- @amounts_by_budget do %>
   <%= if !category do %>
-    expenseData.push({ budget: "Uncategorized", amount: <%= amount %> })
+    expenseData.push({ color: "#dddddd", budget: "Uncategorized", amount: <%= amount %> })
   <% else %>
-    expenseData.push({ budget: "<%= category %>", amount: <%= amount %> })
+    expenseData.push({ color: "<%= color %>", budget: "<%= raw category %>", amount: <%= amount %> })
   <% end %>
 <% end %>
 var expenseTotal = "<%= Money.new(@expense_amount) %>"

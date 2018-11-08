@@ -5,7 +5,7 @@ import ExpenseChart from './components/ExpenseChart'
 
 
 const mapToChartData = (data) => (
-  data.map(d => ({ x: d.budget, y: d.amount }))
+  data.map(d => ({ color: d.color, x: d.budget, y: d.amount }))
 )
 
 ReactDOM.render(

@@ -13,7 +13,7 @@ const asCurrency = (value, multiplier = 0.010) => (
 )
 
 const ExpenseChart = ({ expenseTotal, data }) => {
-  const colors = ["#3b457f", "#329087", "#9e9e9e"]
+  const colors = data.map(d => d.color)
   const chartDimensions = 300
 
   return (
@@ -25,7 +25,7 @@ const ExpenseChart = ({ expenseTotal, data }) => {
             height={chartDimensions}
             standalone={false}
             data={data}
-            padAngle={3}
+            padAngle={0.5}
             innerRadius={55}
             labelRadius={65}
             labels={() => null}
