@@ -28,8 +28,9 @@ defmodule LedgerWeb.CategoryController do
   def edit(conn, %{"id" => id}) do
     category = Budgets.get_category!(id)
     changeset = Budgets.change_category(category)
+    available_colors = Budgets.Categories.available_colors(category.color)
 
-    render(conn, "edit.html", category: category, changeset: changeset)
+    render(conn, "edit.html", category: category, available_colors: available_colors, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "category" => category_params}) do
