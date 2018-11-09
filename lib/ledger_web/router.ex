@@ -23,6 +23,7 @@ defmodule LedgerWeb.Router do
     resources "/accounts", AccountController, except: [:show]
     resources "/transactions", TransactionController, except: [:show]
     resources "/budgets", CategoryController, except: [:show]
+    resources "/transfers", AccountTransferController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.

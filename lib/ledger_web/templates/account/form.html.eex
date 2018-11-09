@@ -12,7 +12,7 @@
   </div>
   <div class="form-group">
     <%= label f, :type, class: "control-label" %>
-    <%= select f, :type, ["Checking Account": "checking_account", "Savings Account": "savings_account"], class: "form-control" %>
+    <%= select f, :type, ["Credit Account": "credit_account", "Checking Account": "checking_account", "Savings Account": "savings_account"], class: "form-control" %>
     <%= error_tag f, :type %>
   </div>
   <div class="form-group">

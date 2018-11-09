@@ -38,6 +38,13 @@ nav .show:checked ~ .burger {
   background: #fff;
 }
 
+.alert-info {
+  background: #65b482;
+  color: #d4e8dc;
+  position: absolute;
+  padding-left: 1rem;
+}
+
 .top-nav .button {
   width: unset;
 }
