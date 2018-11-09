@@ -3,6 +3,7 @@ defmodule Ledger.Budgets.Accounts do
   Account specific functions for the budgets context
   """
 
+  alias Ecto.Multi
   import Ecto.Query, only: [from: 2]
 
   alias Ledger.Repo
@@ -44,5 +45,32 @@ defmodule Ledger.Budgets.Accounts do
   def total_balance() do
     from(a in Account, select: sum(a.balance))
     |> Repo.one() || 0
+  end
+
+  def transfer_funds(from_id, to_id, amount) do
+    from_account =
+      from(account in Account,
+         where: account.id == ^from_id)
+      |> Repo.one()
+
+    to_account =
+      from(account in Account,
+           where: account.id == ^to_id)
+      |> Repo.one()
+
+    with {:ok, money_amount} <- Money.parse(amount) do
+      amount = money_amount.amount
+      from_changeset = Account.changeset(
+        from_account, %{balance: from_account.balance.amount + amount * -1})
+      to_changeset = Account.changeset(
+        to_account, %{balance: to_account.balance.amount + amount})
+
+      Multi.new()
+      |> Multi.update(:from_account, from_changeset)
+      |> Multi.update(:to_account, to_changeset)
+      |> Repo.transaction()
+    else
+      _ -> {:error, "Invalid amount"}
+    end
   end
 end

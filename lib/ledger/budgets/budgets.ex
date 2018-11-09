@@ -11,6 +11,8 @@ defmodule Ledger.Budgets do
   defdelegate get_category!(id), to: Categories
   defdelegate list_categories, to: Categories
   defdelegate update_category(category, attrs), to: Categories
+  defdelegate available_colors(), to: Categories
+  defdelegate available_colors(color), to: Categories
 
   defdelegate account_options, to: Accounts
   defdelegate change_account(account), to: Accounts
@@ -18,9 +20,10 @@ defmodule Ledger.Budgets do
   defdelegate delete_account(account), to: Accounts
   defdelegate get_account!(id), to: Accounts
   defdelegate get_account(id), to: Accounts
-  defdelegate list_accounts, to: Accounts
+  defdelegate list_accounts(), to: Accounts
   defdelegate update_account(account, attrs), to: Accounts
   defdelegate total_balance, to: Accounts
+  defdelegate transfer_funds(from_account, to_account, amount), to: Accounts
 
   defdelegate amounts_by_budget(), to: Transactions
   defdelegate change_transaction(transaction), to: Transactions

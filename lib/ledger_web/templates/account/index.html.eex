@@ -1,5 +1,9 @@
 <h2>Accounts</h2>
 
+<p>
+  <%= link "Transfer Money", to: account_transfer_path(@conn, :new) %>
+</p>
+
 <div class="table">
   <div class="table-row table-header">
     <div class="table-row-item">Name</div>

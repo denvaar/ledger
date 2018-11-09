@@ -25,6 +25,13 @@ defmodule Ledger.Budgets.Categories do
 
   def colors, do: @colors
 
+  def available_colors do
+    used = used_colors()
+
+    @colors
+    |> Enum.reject(fn {_name, value} -> Enum.member?(used, value) end)
+  end
+
   def available_colors(current_color) do
     used = used_colors()
 
