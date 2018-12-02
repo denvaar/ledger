@@ -4,12 +4,33 @@ defmodule LedgerWeb.TransactionController do
   alias Ledger.Budgets
   alias Ledger.Budgets.Transaction
 
+  def index(conn, %{"filter" => %{"from_date" => from_date, "to_date" => to_date}} = params) do
+    filter_params_changeset = Budgets.FilterParams.changeset(%Budgets.FilterParams{}, %{from_date: from_date, to_date: to_date})
+
+    case filter_params_changeset.valid? do
+      true ->
+        page =
+          Budgets.list_transactions()
+          |> Budgets.filter_transactions(from_date, to_date)
+          |> Ledger.Repo.paginate(params)
+
+        render(conn, "index.html", filter_params_changeset: filter_params_changeset, page: page)
+      _ ->
+        page =
+          Budgets.list_transactions()
+          |> Ledger.Repo.paginate(params)
+
+        render(conn, "index.html", filter_params_changeset: %{filter_params_changeset | action: :insert}, page: page)
+    end
+  end
+
   def index(conn, params) do
     page =
       Budgets.list_transactions()
       |> Ledger.Repo.paginate(params)
 
-    render(conn, "index.html", page: page)
+    filter_params_changeset = Budgets.FilterParams.changeset(%Budgets.FilterParams{}, %{})
+    render(conn, "index.html", filter_params_changeset: filter_params_changeset, page: page)
   end
 
   def new(conn, _params) do

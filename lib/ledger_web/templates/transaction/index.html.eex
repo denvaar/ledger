@@ -1,5 +1,7 @@
 <h2>Transactions</h2>
 
+<%= render "filter_form.html", %{assigns | conn: @conn, filter_params_changeset: @filter_params_changeset} %>
+
 <div class="table">
   <div class="table-row table-header">
     <div class="table-row-item">Date</div>
