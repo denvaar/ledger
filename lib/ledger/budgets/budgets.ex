@@ -29,12 +29,13 @@ defmodule Ledger.Budgets do
   defdelegate change_transaction(transaction), to: Transactions
   defdelegate create_transaction(attrs), to: Transactions.Creator
   defdelegate delete_transaction(transaction), to: Transactions
+  defdelegate filter_transactions(transactions, from_date, to_date), to: Transactions
   defdelegate get_transaction!(id), to: Transactions
   defdelegate import_transactions(csv_file), to: Transactions.Importer
   defdelegate list_transactions, to: Transactions
-  defdelegate monthly_expenses, to: Transactions
   defdelegate monthly_expenses(date), to: Transactions
-  defdelegate monthly_savings, to: Transactions
+  defdelegate monthly_expenses, to: Transactions
   defdelegate monthly_savings(date), to: Transactions
+  defdelegate monthly_savings, to: Transactions
   defdelegate update_transaction(transaction, attrs), to: Transactions.Updater
 end

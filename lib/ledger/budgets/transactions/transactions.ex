@@ -9,6 +9,11 @@ defmodule Ledger.Budgets.Transactions do
   alias Ledger.Budgets.{Category, Transaction}
 
 
+  def filter_transactions(transactions_query, from_date, to_date) do
+    transactions_query
+    |> Ecto.Query.where([t], t.date >= ^from_date and t.date <= ^to_date)
+  end
+
   def list_transactions do
     from(t in Transaction, preload: [:account, :category], order_by: [desc: t.date])
   end

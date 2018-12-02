@@ -1,0 +1,15 @@
+<div>
+  <%= form_for @filter_params_changeset, transaction_path(@conn, :index), [as: "filter", method: :get], fn f -> %>
+    <h6>Filter by date range</h6>
+    <%= label f,      :from_date, class: "control-label" %>
+    <%= error_tag f,  :from_date %>
+    <%= date_input f, :from_date, class: "form-control" %>
+
+    <%= label f,      :to_date,   class: "control-label" %>
+    <%= error_tag f,  :to_date %>
+    <%= date_input f, :to_date,   class: "form-control" %>
+
+    <%= submit "Apply" %>
+    <button type="reset" class="cancel">Reset Filters</button>
+  <% end %>
+</div>
